@@ -9,3 +9,5 @@ age2 = 234
 
 
 print(age + age2)
+
+print (age - age2)
