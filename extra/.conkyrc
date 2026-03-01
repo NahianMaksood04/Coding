@@ -23,35 +23,46 @@ use_xft yes
 xftfont DejaVu Sans:size=10
 default_color black              # black text on white bg
 
+
+
+
+
+
+
 TEXT
-${font Gentium:bold:size=25}python${font}
+${font Gentium:bold:size=25}10,000/=${font}
 ${hr 2}
+# ===== ===== ===== # 
 # Weeks passed (Sunday-based) and day in week
+#${font Gentium:bold:size=40}${execi 3600 bash -c '
+#weeks_passed=$(date +%U)
+#d=$(date +%w)
+#((d==0)) && d=1 || d=$((d+1))
+#echo "${weeks_passed}(${d})"
+#'}${font}
+# ===== ===== ===== # 
+# Days left yyyy-mm-dd
 ${font Gentium:bold:size=40}${execi 3600 bash -c '
-weeks_passed=$(date +%U)
-d=$(date +%w)
-((d==0)) && d=1 || d=$((d+1))
-echo "${weeks_passed}(${d})"
-'}${font}
-# Days left until 2027-01-01
-${font Gentium:bold:size=40}${execi 3600 bash -c '
-end=$(date -d "2026-03-07" +%s)
+end=$(date -d "2027-03-04" +%s)
 today=$(date -d "$(date +%F)" +%s)
 diff=$((end - today))
 days=$((diff / 86400))
 weeks=$((days / 7))
 echo "$days ($weeks)"
 '}${font}
-# Total days passed since 2026-01-01
-# ${font Gentium:bold:size=40}${execi 3600 bash -c '
-# days_passed=$(( ( $(date +%s) - $(date -d "2026-01-01" +%s) ) / 86400 ))
-# printf "%03d" "$days_passed"
-# '}${font}
+# ===== ===== ===== # 
+# Total days passed yyyy-mm-dd
+#${font Gentium:bold:size=40}${execi 3600 bash -c '
+#days_passed=$(( ( $(date +%s) - $(date -d "2026-03-04" +#%s) ) / 86400 ))
+#printf "%03d" "$days_passed"
+#'}${font}
 ${hr 2}
+# ===== ===== ===== # 
 # Time and Date (Dhaka)
 ${font Gentium:bold:size=30}${execi 1 TZ=Asia/Dhaka date +%H:%M}${font}
 ${font Gentium:bold:size=20}${execi 60 TZ=Asia/Dhaka date +"%a %d.%m"}${font}
 ${hr 2}
+# ===== ===== ===== # 
 # System stats
 ${font Gentium:bold:size=18}Uptime: ${uptime_short}${font}
 ${font Gentium:bold:size=18}CPU: ${freq 0} MHz${font}
@@ -60,6 +71,7 @@ ${font Gentium:bold:size=18}RAM: ${mem}${font}
 ${font Gentium:bold:size=18}Storage: ${fs_used /}${font}
 ${font Gentium:bold:size=18}Battery: ${battery_percent BAT0}% ${battery_time BAT0}${font}
 ${hr 2}
+# ===== ===== ===== # 
 # Network stats
 ${font Gentium:bold:size=16}WiFi: ${execi 10 /sbin/iwgetid -r}${font}
 ${font Gentium:bold:size=16}Signal: ${execi 10 awk "NR==3 {printf \"%d%%\", (\$3 * 100 / 70)}" /proc/net/wireless}${font}
