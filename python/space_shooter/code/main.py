@@ -22,11 +22,6 @@ while running:
 
     dis_surf.blit(plane, (100, 400))
 
-    random_x = random.randint(950, 450)
-    random_y = random.randint(950, 450)
-
-    dis_surf.blit(star, (random_x, random_y))
-
     pygame.display.update()
 
 pygame.quit()
