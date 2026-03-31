@@ -30,7 +30,7 @@ default_color black              # black text on white bg
 
 
 TEXT
-${font Gentium:bold:size=25}10,000/=${font}
+${font Gentium:bold:size=25}100,000 /=${font}
 ${hr 2}
 # ===== ===== ===== # 
 # Weeks passed (Sunday-based) and day in week
@@ -43,7 +43,7 @@ ${hr 2}
 # ===== ===== ===== # 
 # Days left yyyy-mm-dd
 ${font Gentium:bold:size=40}${execi 3600 bash -c '
-end=$(date -d "2027-03-04" +%s)
+end=$(date -d "2027-01-01" +%s)
 today=$(date -d "$(date +%F)" +%s)
 diff=$((end - today))
 days=$((diff / 86400))
@@ -78,8 +78,5 @@ ${font Gentium:bold:size=16}Signal: ${execi 10 awk "NR==3 {printf \"%d%%\", (\$3
 ${font Gentium:bold:size=16}Down: ${downspeed wlan0}${font}
 ${font Gentium:bold:size=16}Up: ${upspeed wlan0}${font}
 ${hr 2}
-
-
-
-
+# ===== ===== ===== # 
 
