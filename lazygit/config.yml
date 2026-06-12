@@ -1,0 +1,12 @@
+customCommands:
+  - key: "t"
+    context: "files"
+    description: "Commit with date/time"
+    prompts:
+      - type: "input"
+        title: "Enter your commit message:"
+        key: "msg"
+    command: >
+      bash -c 'git commit -m "$(date "+%d-%m-%Y | %H:%M:%S") - {{.Form.msg}}"'
+
+    output: terminal

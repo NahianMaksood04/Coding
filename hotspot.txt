@@ -1,0 +1,28 @@
+sudo rfkill unblock wifi
+sudo rfkill unblock all
+killall dnsmasq 2>/dev/null
+killall hostapd 2>/dev/null
+service dnsmasq stop 2>/dev/null
+service connman stop 2>/dev/null
+
+
+sudo ip link set wlan0 down
+sudo ip addr flush dev wlan0
+sudo ip link set wlan0 up
+
+
+sudo create_ap --no-virt wlan0 eth0 MyHotspot 12345678
+
+
+anipy-cli -D -q 1080 -s "Trigun:1-26:dub"
+
+
+
+xinput list
+xinput disable 21
+xinput disable 20
+
+
+
+filebrowser -r ~/Downloads -p 8080 -a 0.0.0.0
+filebrowser users update admin --password newpassword123

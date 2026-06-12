@@ -1,0 +1,88 @@
+background no
+update_interval 1
+double_buffer yes
+
+# ===== WINDOW (antiX SAFE) =====
+own_window yes
+own_window_type override
+own_window_hints undecorated,sticky,skip_taskbar,skip_pager,above
+
+# ===== SOLID BACKGROUND =====
+own_window_argb_visual yes
+own_window_argb_value 255        # fully opaque
+own_window_colour ffffff         # WHITE background
+own_window_transparent no
+
+# ===== POSITION =====
+alignment top_right
+gap_x 15
+gap_y 15
+
+# ===== FONT =====
+use_xft yes
+xftfont DejaVu Sans:size=10
+default_color black              # black text on white bg
+
+
+
+
+
+
+
+TEXT
+${font Gentium:bold:size=25}100,000 /=${font}
+${hr 2}
+# ===== ===== ===== # 
+# Weeks passed (Sunday-based) and day in week
+#${font Gentium:bold:size=40}${execi 3600 bash -c '
+#weeks_passed=$(date +%U)
+#d=$(date +%w)
+#((d==0)) && d=1 || d=$((d+1))
+#echo "${weeks_passed}(${d})"
+#'}${font}
+# ===== ===== ===== # 
+# Days left yyyy-mm-dd
+${font Gentium:bold:size=40}${execi 3600 bash -c '
+end=$(date -d "2027-01-01" +%s)
+today=$(date -d "$(date +%F)" +%s)
+diff=$((end - today))
+days=$((diff / 86400))
+weeks=$((days / 7))
+echo "$days ($weeks)"
+'}${font}
+# ===== ===== ===== # 
+# Total days passed yyyy-mm-dd
+#${font Gentium:bold:size=40}${execi 3600 bash -c '
+#days_passed=$(( ( $(date +%s) - $(date -d "2026-03-04" +#%s) ) / 86400 ))
+#printf "%03d" "$days_passed"
+#'}${font}
+${hr 2}
+# ===== ===== ===== # 
+# Time and Date (Dhaka)
+${font Gentium:bold:size=30}${execi 1 TZ=Asia/Dhaka date +%H:%M}${font}
+${font Gentium:bold:size=20}${execi 60 TZ=Asia/Dhaka date +"%a %d.%m"}${font}
+${hr 2}
+# ===== ===== ===== # 
+# System stats
+${font Gentium:bold:size=18}Uptime: ${uptime_short}${font}
+${font Gentium:bold:size=18}CPU: ${freq 0} MHz${font}
+${font Gentium:bold:size=18}Temp: ${execi 5 sensors | awk "/Package id 0:/ {print \$4; exit}"}${font}
+${font Gentium:bold:size=18}RAM: ${mem}${font}
+${font Gentium:bold:size=18}Storage: ${fs_used /} / ${fs_free /}${font}
+${font Gentium:bold:size=18}Battery: ${battery_percent BAT0}% ${battery_time BAT0}${font}
+${hr 2}
+# ===== ===== ===== # 
+# Network stats
+${font Gentium:bold:size=16}WiFi: ${execi 10 /sbin/iwgetid -r}${font}
+${font Gentium:bold:size=16}Signal: ${execi 10 awk "NR==3 {printf \"%d%%\", (\$3 * 100 / 70)}" /proc/net/wireless}${font}
+${font Gentium:bold:size=16}Down: ${downspeed wlan0}${font}
+${font Gentium:bold:size=16}Up: ${upspeed wlan0}${font}
+${hr 2}
+# Network stats
+${font Gentium:bold:size=16}LAN: ${if_up eth0}Connected${else}Disconnected${endif}${font}
+${font Gentium:bold:size=16}IP: ${addr eth0}${font}
+${font Gentium:bold:size=16}Down: ${downspeed eth0}${font}
+${font Gentium:bold:size=16}Up: ${upspeed eth0}${font}
+${hr 2}
+# ===== ===== ===== # 
+
