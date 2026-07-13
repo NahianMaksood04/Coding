@@ -1,14 +1,31 @@
-X = 1280
-Y = 720
+WIDTH = 1280
+HEIGHT = 720
+
+VIR_WIDTH = 432
+VIR_HEIGHT = 243
+
+push = require "push"
 
 function love.load()
-    love.window.setMode(X,Y,{
+    love.graphics.setDefaultFilter("nearest","nearest")
+    love.window.setMode(WIDTH,HEIGHT,{
         resizable=false,
         vsync=true,
         fullscreen=false,
     })
+    push.setupScreen(VIR_WIDTH,VIR_HEIGHT, {upscale = "normal"})
+end
+
+function love.keypressed(key)
+    if key == "escape" then
+        love.event.quit()
+
+    end
+
 end
 
 function love.draw()
-    love.graphics.printf("hello,world",0, X/2 -6,Y,"center")
+    push.start()
+    love.graphics.printf("hello,world",0, VIR_HEIGHT/2 -6,VIR_WIDTH,"center")
+    push.finish()
 end
