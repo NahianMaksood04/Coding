@@ -92,8 +92,8 @@ function love.load()
 
     -- initialize our player paddles; make them global so that they can be
     -- detected by other functions and modules
-    player1 = Paddle(10, 30, 5, 20)
-    player2 = Paddle(VIRTUAL_WIDTH - 10, VIRTUAL_HEIGHT - 30, 5, 20)
+    player1 = Paddle(10, 30, 5, 40)
+    player2 = Paddle(VIRTUAL_WIDTH - 10, VIRTUAL_HEIGHT - 30, 5, 40)
 
     -- place a ball in the middle of the screen
     ball = Ball(VIRTUAL_WIDTH / 2 - 2, VIRTUAL_HEIGHT / 2 - 2, 4, 4)
@@ -163,6 +163,7 @@ function love.update(dt)
 
             sounds['paddle_hit']:play()
         end
+        -- ai implimantaion
         if ball:collides(player2) then
             ball.dx = -ball.dx * 1.03
             ball.x = player2.x - 4
@@ -238,7 +239,7 @@ function love.update(dt)
         player1.dy = 0
     end
 
-    -- player 2
+    -- player 2 also need to implent ai
     if love.keyboard.isDown('up') then
         player2.dy = -PADDLE_SPEED
     elseif love.keyboard.isDown('down') then
